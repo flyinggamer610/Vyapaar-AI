@@ -5,10 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { 
-  IndianRupee, 
-  Search, 
-  Filter, 
+import {
+  IndianRupee,
+  Search,
+  Filter,
   Plus,
   Clock,
   CheckCircle,
@@ -20,12 +20,13 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { VoiceReminderButton } from "@/components/VoiceReminderButton";
 import { ReminderCard } from "@/components/ReminderCard";
 import { useToast } from "@/hooks/use-toast";
+import { Reminder } from "@/types";
 
 const Payments = () => {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
-  const [reminders, setReminders] = useState<any[]>([
+  const [reminders, setReminders] = useState<Reminder[]>([
     {
       id: "1",
       customerName: "अमित शर्मा",
@@ -37,7 +38,7 @@ const Payments = () => {
       createdAt: new Date().toISOString()
     },
     {
-      id: "2", 
+      id: "2",
       customerName: "प्रिया कुमार",
       amount: "₹1,200",
       dueDate: "Tomorrow",
@@ -48,12 +49,12 @@ const Payments = () => {
     }
   ]);
 
-  const handleReminderCreated = (reminder: any) => {
+  const handleReminderCreated = (reminder: Reminder) => {
     setReminders(prev => [reminder, ...prev]);
   };
 
   const handleMarkPaid = (id: string) => {
-    setReminders(prev => prev.map(r => 
+    setReminders(prev => prev.map(r =>
       r.id === id ? { ...r, status: 'paid' } : r
     ));
     toast({
@@ -65,14 +66,14 @@ const Payments = () => {
   const handleDeleteReminder = (id: string) => {
     setReminders(prev => prev.filter(r => r.id !== id));
     toast({
-      title: "Reminder Deleted", 
+      title: "Reminder Deleted",
       description: "Payment reminder has been removed.",
     });
   };
 
   const filteredReminders = reminders.filter(reminder => {
     const matchesSearch = reminder.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         reminder.amount.includes(searchTerm);
+      reminder.amount.includes(searchTerm);
     const matchesFilter = filterStatus === "all" || reminder.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
@@ -82,7 +83,7 @@ const Payments = () => {
     const overdue = reminders.filter(r => r.status === 'overdue').length;
     const paid = reminders.filter(r => r.status === 'paid').length;
     const total = reminders.length;
-    
+
     return { pending, overdue, paid, total };
   };
 
@@ -92,7 +93,7 @@ const Payments = () => {
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background">
         <AppSidebar />
-        
+
         <main className="flex-1 overflow-auto">
           {/* Header */}
           <header className="bg-white dark:bg-card border-b border-border p-4 lg:p-6">
@@ -238,7 +239,7 @@ const Payments = () => {
                     </div>
                     <h3 className="font-semibold text-lg mb-2">No reminders found</h3>
                     <p className="text-muted-foreground mb-4">
-                      {searchTerm || filterStatus !== 'all' 
+                      {searchTerm || filterStatus !== 'all'
                         ? "Try adjusting your search or filter criteria."
                         : "Create your first payment reminder using voice commands above."
                       }

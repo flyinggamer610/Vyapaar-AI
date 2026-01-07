@@ -1,0 +1,23 @@
+
+> dev
+> vite
+
+[31mfailed to load config from C:\Users\DARSHAN\OneDrive - somaiya.edu\Desktop\vyapar\frontend\vite.config.ts[39m
+[31merror when starting dev server:
+Error: Cannot find package 'C:\Users\DARSHAN\OneDrive - somaiya.edu\Desktop\vyapar\node_modules\vite\index.js' imported from C:\Users\DARSHAN\OneDrive - somaiya.edu\Desktop\vyapar\node_modules\@vitejs\plugin-react-swc\index.js
+    at legacyMainResolve (node:internal/modules/esm/resolve:204:26)
+    at packageResolve (node:internal/modules/esm/resolve:778:12)
+    at moduleResolve (node:internal/modules/esm/resolve:854:18)
+    at defaultResolve (node:internal/modules/esm/resolve:984:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:685:12)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:634:25)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:617:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:273:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:135:49)[39m
+npm error Lifecycle script `dev` failed with error:
+npm error code 1
+npm error path C:\Users\DARSHAN\OneDrive - somaiya.edu\Desktop\vyapar\frontend
+npm error workspace vyapaar-ai-frontend
+npm error location C:\Users\DARSHAN\OneDrive - somaiya.edu\Desktop\vyapar\frontend
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c vite

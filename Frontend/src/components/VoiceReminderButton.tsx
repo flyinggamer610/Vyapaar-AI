@@ -5,9 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { Reminder } from "@/types";
 
 interface VoiceReminderButtonProps {
-  onReminderCreated?: (reminder: any) => void;
+  onReminderCreated?: (reminder: Reminder) => void;
   variant?: "default" | "sm" | "lg";
 }
 
@@ -23,7 +24,7 @@ export function VoiceReminderButton({ onReminderCreated, variant = "default" }: 
       setIsListening(true);
       setTranscript("");
       setProgress(0);
-      
+
       // Simulate voice recognition process
       const interval = setInterval(() => {
         setProgress(prev => {
@@ -55,29 +56,29 @@ export function VoiceReminderButton({ onReminderCreated, variant = "default" }: 
 
   const processVoiceInput = async (text: string) => {
     setIsProcessing(true);
-    
+
     try {
       // Simulate AI processing to extract customer name, amount, and date
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       const extractedData = {
         id: Date.now().toString(),
         customerName: "Ramesh Kumar",
         amount: "₹1,200",
         dueDate: "Friday",
         phone: "+91 98765 43210",
-        status: "pending",
+        status: "pending" as const,
         originalText: text,
         createdAt: new Date().toISOString()
       };
 
       onReminderCreated?.(extractedData);
-      
+
       toast({
         title: "Voice Reminder Created",
         description: `Payment reminder for ${extractedData.customerName} has been created.`,
       });
-      
+
     } catch (error) {
       toast({
         title: "Processing Error",
@@ -152,20 +153,20 @@ export function VoiceReminderButton({ onReminderCreated, variant = "default" }: 
                   </Badge>
                 </div>
                 <p className="text-sm text-primary/80">
-                  {isListening 
+                  {isListening
                     ? 'Say: "Send [Customer] a [Amount] reminder for [Date]"'
                     : 'Extracting customer details...'
                   }
                 </p>
               </div>
             </div>
-            
+
             {transcript && (
               <div className="mb-3 p-2 bg-white/50 rounded text-sm">
                 <strong>Heard:</strong> "{transcript}"
               </div>
             )}
-            
+
             <Progress value={progress} className="h-2" />
           </CardContent>
         </Card>
